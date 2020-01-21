@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { Draft } from "./Editor";
+import { Controlled as CodeMirror } from "react-codemirror2";
+import hypermd from "hypermd";
+
+import "codemirror/mode/xml/xml";
+import "codemirror/mode/javascript/javascript";
+
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
+
+// import { Draft } from "./Editor";
 
 import logo from "./logo.svg";
 // import "./App.css";
@@ -15,12 +24,17 @@ function App() {
   return (
     <>
       <div className="App">
-        <Draft
-          onChange={c => setContent(c)}
-          node_id="EditorID"
-          content=""
-          placeholder="Enter your text here..."
-          stylable={true}
+        <CodeMirror
+          value={content}
+          options={{
+            mode: "javascript",
+            theme: "material",
+            lineNumbers: true
+          }}
+          onBeforeChange={(editor, data, value) => {
+            setContent(value);
+          }}
+          onChange={(editor, data, value) => {}}
         />
       </div>
       <h4>The generated HTML code:</h4>
