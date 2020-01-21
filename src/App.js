@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Draft } from "./Editor";
 
@@ -7,6 +7,11 @@ import logo from "./logo.svg";
 
 function App() {
   const [content, setContent] = useState("");
+
+  function createMarkup() {
+    return { __html: content };
+  }
+
   return (
     <>
       <div className="App">
@@ -18,7 +23,10 @@ function App() {
           stylable={true}
         />
       </div>
+      <h4>The generated HTML code:</h4>
       <div>{content}</div>
+      <h4>The generated output:</h4>
+      <div dangerouslySetInnerHTML={createMarkup()}></div>
     </>
   );
 }
